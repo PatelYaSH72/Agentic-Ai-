@@ -1,53 +1,85 @@
 import os
+from dotenv import load_dotenv
+
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
-from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 from langchain_core.messages import HumanMessage, SystemMessage
+
+# Load environment variables
 load_dotenv()
 
+# ChromaDB persistent directory
 persistent_directory = "db/chroma_db"
 
-embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+# Embedding model
+embedding_model = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
 
+# Load ChromaDB
 db = Chroma(
     persist_directory=persistent_directory,
     embedding_function=embedding_model,
-    collection_metadata={"hnsw:space":"cosine"}
+    collection_metadata={"hnsw:space": "cosine"}
 )
 
-query = "Who is founder of the Google"
+# User query
+query = "Who is founder of Google?"
 
-retriver = db.as_retriever(search_kwargs={"k":3})
+# Retriever
+retriever = db.as_retriever(search_kwargs={"k": 1})
 
+# Retrieve relevant documents
+relevant_docs = retriever.invoke(query)
 
-relevent_docs = retriver.invoke(query)
-
+# Print user query
+print("=" * 60)
 print(f"User Query: {query}")
+print("=" * 60)
 
-print("---Context---")
-for i, doc in enumerate(relevent_docs, 1):
-  print(f"Document {i}:\n{doc.page_content}\n")
+# Print retrieved context
+print("\n--- Retrieved Context ---\n")
 
+for i, doc in enumerate(relevant_docs, 1):
+    print(f"Document {i}:")
+    print(doc.page_content)
+    print("-" * 60)
+
+# Combine retrieved documents into prompt
 combined_input = f"""
-                Based on the following documents, please answer this quation: {query}
+You are a helpful AI assistant.
 
-Documentes: {chr(10).join([f"-{doc.page_content}" for doc in relevent_docs])}
+Answer the following question only using the provided documents.
 
-Please provide a clear, helpful answer using only the information from these documents. If you can't find the answer in the correct, you  dont use own tranning dataset, only use this document data
+Question:
+{query}
+
+Documents:
+{chr(10).join([doc.page_content for doc in relevant_docs])}
+
+Instructions:
+- Use only the provided document context
+- Do not use external knowledge
+- If the answer is not found, say:
+  "Answer not found in the provided documents."
 """
 
-model = ChatGroq(model="llama-3.3-70b-versatile")
+# Load Groq model
+model = ChatGroq(
+    model="llama-3.3-70b-versatile"
+)
 
+# Messages
 messages = [
-  SystemMessage(content="You are a hepful assistent."),
-  HumanMessage(content=combined_input),
+    SystemMessage(content="You are a helpful assistant."),
+    HumanMessage(content=combined_input),
 ]
 
+# Generate response
 result = model.invoke(messages)
 
-print("\n--- Generated Response ---")
-
-
-print("Content only:")
+# Final output
+print("\n=== Generated Response ===\n")
 print(result.content)
+print("\n" + "=" * 60)
