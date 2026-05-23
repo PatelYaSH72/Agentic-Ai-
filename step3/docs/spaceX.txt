@@ -1,0 +1,121 @@
+SpaceX Company Knowledge Base (RAG Testing Sample)
+Company Overview
+
+SpaceX is an aerospace and space transportation company founded in 2002 by Elon Musk.
+
+Headquarters: SpaceX Headquarters
+CEO: Elon Musk
+Founded: March 14, 2002
+
+Official Website: SpaceX
+
+Main Rockets
+Falcon 9
+
+Falcon 9 is SpaceX’s primary launch vehicle.
+
+Features:
+
+Reusable first-stage booster
+Autonomous drone ship landings
+Cargo and crew missions
+Satellite deployment
+Falcon Heavy
+
+Falcon Heavy is one of the most powerful operational rockets.
+
+Capabilities:
+
+Heavy payload launches
+Deep-space missions
+National security launches
+Starship
+
+Starship is SpaceX’s next-generation spacecraft.
+
+Goals:
+
+Mars missions
+Lunar missions
+Rapid Earth transport
+Large-scale cargo deployment
+Starlink
+
+Starlink provides global satellite internet access.
+
+Features:
+
+Low Earth orbit satellites
+Low-latency internet
+Rural connectivity
+Portable terminals
+Dragon Spacecraft
+
+Crew Dragon transports astronauts to orbit.
+
+Used For:
+
+ISS missions
+NASA astronaut transport
+Cargo resupply
+SpaceX Engineering
+
+Core Engineering Areas:
+
+Rocket propulsion
+Autonomous landing systems
+Heat shield technology
+Orbital mechanics
+Satellite networking
+
+Important Technologies:
+
+Merlin engines
+Raptor engines
+Reusable boosters
+AI-guided landing systems
+NASA Partnerships
+
+SpaceX works with NASA on:
+
+ISS missions
+Artemis lunar missions
+Cargo transportation
+Human spaceflight
+Security Practices
+Mission systems undergo multiple validation checks.
+Launch infrastructure uses isolated control systems.
+Critical flight software requires redundancy testing.
+Telemetry communication is encrypted.
+Revenue Sources
+
+SpaceX earns revenue through:
+
+Satellite launches
+NASA contracts
+Starlink subscriptions
+Government missions
+Commercial payload launches
+Launch Infrastructure
+
+Major launch facilities include:
+
+Kennedy Space Center
+Cape Canaveral
+Starbase Texas
+Vandenberg Space Force Base
+Random Retrieval Test Data
+
+Falcon 1 became the first privately developed liquid-fueled rocket to reach orbit.
+
+The first successful Falcon 9 landing occurred in 2015.
+
+Starlink operates thousands of satellites in low Earth orbit.
+
+Raptor engines use methane and liquid oxygen.
+
+Internal launch simulation codename: RedOrbit-X.
+
+Emergency telemetry region: spx-control-4.
+
+Mission escalation code: SPX-2217.

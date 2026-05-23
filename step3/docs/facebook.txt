@@ -1,0 +1,183 @@
+Facebook Company Knowledge Base (RAG Testing Sample)
+Company Overview
+
+Facebook is a social networking platform launched in 2004 by Mark Zuckerberg along with co-founders Dustin Moskovitz, Eduardo Saverin, Andrew McCollum, and Chris Hughes.
+
+Parent Company: Meta Platforms
+CEO: Mark Zuckerberg
+Headquarters: Meta Headquarters
+Founded: February 4, 2004
+
+Official Website: Facebook
+
+Main Products
+Facebook App
+
+Facebook allows users to:
+
+Share posts
+Upload photos and videos
+Join groups
+Follow pages
+Create events
+Use Marketplace
+Watch videos
+
+Key Features:
+
+News Feed
+Stories
+Reels
+Messenger integration
+AI content recommendations
+Messenger
+
+Messenger is Facebook’s communication platform.
+
+Features:
+
+Text messaging
+Voice calls
+Video calls
+Group chats
+File sharing
+End-to-end encrypted chats
+Facebook Marketplace
+
+Facebook Marketplace enables local buying and selling.
+
+Common Categories:
+
+Electronics
+Vehicles
+Furniture
+Clothing
+Real estate
+Meta Ecosystem
+
+Meta Platforms owns multiple major platforms:
+
+Platform	Purpose
+Facebook	Social networking
+Instagram	Photo and video sharing
+WhatsApp	Messaging
+Messenger	Communication
+Threads	Social discussion platform
+Advertising Platform
+
+Meta Ads Manager is used for digital advertising.
+
+Capabilities:
+
+Audience targeting
+Conversion tracking
+Campaign analytics
+Retargeting
+AI ad optimization
+
+Advertising is Meta’s primary revenue source.
+
+Artificial Intelligence
+
+Meta invests heavily in AI research and infrastructure.
+
+Important AI Projects:
+
+Project	Purpose
+Llama	Large language models
+Meta AI	AI assistant
+PyTorch	Machine learning framework
+Segment Anything	Computer vision model
+
+Meta is one of the major contributors to open-source AI research.
+
+Engineering Infrastructure
+
+Meta infrastructure supports billions of users globally.
+
+Core Technologies:
+
+Distributed databases
+GraphQL
+React
+Hack programming language
+AI recommendation systems
+
+Infrastructure includes:
+
+Global data centers
+Content delivery systems
+Massive-scale storage clusters
+GPU-based AI training systems
+Security Policies
+Multi-factor authentication is recommended for all accounts.
+Suspicious login activity triggers alerts.
+Sensitive user data is encrypted.
+Internal systems follow role-based access control.
+Abuse detection systems monitor spam and fake accounts.
+Famous Acquisitions
+Company	Year
+Instagram	2012
+WhatsApp	2014
+Oculus VR	2014
+Giphy	2020
+Meta VR and AR
+
+Reality Labs focuses on virtual reality and augmented reality products.
+
+Products include:
+
+Meta Quest headsets
+Horizon Worlds
+Smart glasses research
+Developer Technologies
+
+Meta technologies widely used by developers:
+
+React
+React Native
+GraphQL
+PyTorch
+React
+
+React is one of the most popular frontend libraries globally.
+
+GraphQL
+
+GraphQL was originally developed at Facebook.
+
+Content Moderation
+
+Facebook uses:
+
+AI moderation systems
+Human review teams
+Community standards enforcement
+Spam and misinformation detection
+Revenue Model
+
+Meta primarily earns revenue through:
+
+Social media advertising
+Business marketing tools
+VR hardware sales
+Creator monetization systems
+Random Retrieval Test Data
+
+Facebook originally started as “TheFacebook”.
+
+The Like button was introduced in 2009.
+
+Meta announced its company rebrand in 2021.
+
+Instagram exceeded 1 billion users globally.
+
+WhatsApp was acquired for approximately $19 billion.
+
+Internal testing cluster codename: HydraNode.
+
+AI recommendation engine version: RankNet V5.
+
+Emergency operations response region: us-west-meta-2.
+
+Support escalation code: FBX-9921.

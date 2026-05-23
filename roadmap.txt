@@ -1,0 +1,85 @@
+🟢 STEP 1 — Python (Foundation)
+	Krish Naik bolta hai → sabse pehle Python
+	Project banane padenge:
+	Calculator (basic)
+	File organizer
+	API data fetcher (weather/news)
+		👉 Purpose: coding strong
+	👉 Time waste mat karna yaha (max 7–10 din)
+
+🟢 STEP 2 — ML + NLP basic (optional but useful)
+	Agar job chahiye AI me → basics chahiye
+	Agar sirf development → skip kar sakte
+	Project (only 1 enough):
+	Spam classifier
+	Sentiment analysis
+	Text summarizer
+	👉 Simple project enough (resume ke liye)
+
+🟢 STEP 3 — Transformers understanding
+	Yaha theory jyada
+	Project compulsory nahi
+	BUT agar smart banna hai 👇
+	Mini project:
+	HuggingFace text summarizer
+	Translator app
+	Bas ek small project.
+
+🟢 STEP 4 — Generative AI (IMPORTANT)
+	Ye start hota hai real game 🔥
+	Yaha 3 project compulsory:
+	1️⃣ ChatGPT clone website
+	2️⃣ AI blog generator
+	3️⃣ AI resume builder
+	Tech:
+	React
+	Node/Flask
+	OpenAI/Gemini
+	👉 Ye banaya = GenAI developer
+
+🟢 STEP 5 — RAG (SUPER IMPORTANT)
+	Krish Naik bhi bolta → RAG must
+	Yaha 2 project compulsory:
+	1️⃣ PDF chatbot
+	2️⃣ Website chatbot
+	3️⃣ Notes chatbot (optional)
+	👉 Interview me 90% ye puchte
+
+🟢 STEP 6 — Agentic AI (MAIN STEP 🔥)
+	Ab asli game start
+	Yaha minimum 2–3 project:
+	1️⃣ AI research agent
+	(search → summarize → save)
+	2️⃣ Multi-agent system
+	(manager agent + worker)
+	3️⃣ AI personal assistant
+	(Jarvis type)
+	Framework:
+	LangGraph
+	CrewAI
+	Autogen
+	👉 Ye banaya = next level developer
+
+🟢 STEP 7 — Cloud deployment
+	Final step
+	Final killer project (1):
+	Choose ONE:
+	🔥 AI SaaS tool
+	🔥 AI website builder
+	🔥 AI coding assistant
+	🔥 AI business idea generator
+	Deploy:
+	Vercel
+	Render
+	AWS (optional)
+
+	🔥 TOTAL PROJECT COUNT (Krish roadmap)
+	Step
+	Projects
+	Python 2
+	ML/NLP 1
+	GenAI 3
+	RAG 2
+	Agentic 2
+	Final 1
+	👉 Total: 10 projects = job ready

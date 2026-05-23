@@ -1,0 +1,130 @@
+NVIDIA Company Knowledge Base (RAG Testing Sample)
+Company Overview
+
+NVIDIA is an American technology company focused on GPUs, AI computing, data center infrastructure, and accelerated computing.
+
+Founded: April 5, 1993
+CEO: Jensen Huang
+Headquarters: NVIDIA Headquarters
+
+Official Website: NVIDIA
+
+Main Products
+GeForce GPUs
+
+GeForce RTX is NVIDIA’s gaming GPU lineup.
+
+Features:
+
+Ray tracing
+DLSS AI upscaling
+High FPS gaming
+AI rendering acceleration
+
+Popular Series:
+
+RTX 4060
+RTX 4070
+RTX 4080
+RTX 4090
+Data Center GPUs
+
+NVIDIA H100 and A100 GPUs are designed for AI workloads.
+
+Used For:
+
+LLM training
+Deep learning
+Scientific computing
+Cloud AI infrastructure
+CUDA Platform
+
+CUDA allows developers to use GPUs for general-purpose computing.
+
+Languages Supported:
+
+C++
+Python
+CUDA C
+Artificial Intelligence
+
+NVIDIA is one of the biggest infrastructure providers for AI.
+
+Key AI Technologies:
+
+Technology	Purpose
+CUDA	GPU computing
+TensorRT	AI inference optimization
+DGX Systems	AI supercomputers
+Omniverse	3D simulation platform
+Data Center Business
+
+NVIDIA’s data center division powers:
+
+AI startups
+Cloud providers
+Research institutions
+Autonomous driving systems
+
+Major customers include:
+
+Microsoft
+Amazon
+Google
+Meta
+Automotive AI
+
+NVIDIA DRIVE supports self-driving technologies.
+
+Capabilities:
+
+AI-assisted driving
+Sensor fusion
+Real-time object detection
+Autonomous navigation
+Gaming Ecosystem
+
+NVIDIA technologies used in gaming:
+
+DLSS
+Ray tracing
+Reflex latency reduction
+G-SYNC
+Security Policies
+Secure firmware validation is mandatory.
+AI infrastructure requires encrypted communication.
+Internal systems follow zero-trust security models.
+Hardware drivers undergo vulnerability testing.
+Engineering Technologies
+
+NVIDIA commonly uses:
+
+C++
+Python
+CUDA
+Tensor cores
+Parallel computing architectures
+Revenue Sources
+
+NVIDIA earns revenue through:
+
+Gaming GPUs
+AI data center hardware
+Automotive AI systems
+Enterprise software
+Cloud AI partnerships
+Random Retrieval Test Data
+
+NVIDIA’s name comes from the Latin word “Invidia”.
+
+CUDA was first released in 2007.
+
+The H100 GPU is based on the Hopper architecture.
+
+DGX systems are optimized for AI model training.
+
+Internal testing cluster codename: TitanGrid.
+
+AI infrastructure response zone: nv-ai-west-1.
+
+Support escalation code: NVX-7742.

@@ -1,0 +1,196 @@
+Google Company Knowledge Base (RAG Testing Sample)
+Company Overview
+
+Google is an American multinational technology company founded in 1998 by Larry Page and Sergey Brin.
+
+Google specializes in:
+
+Internet search
+Cloud computing
+Artificial intelligence
+Advertising technology
+Consumer software
+Mobile operating systems
+
+Parent Company: Alphabet Inc.
+CEO: Sundar Pichai
+Headquarters: Googleplex
+Founded: September 4, 1998
+
+Official Website: Google
+
+Core Products
+Search Engine
+
+Google Search is the most widely used search engine globally.
+
+Features:
+
+Web search
+Image search
+Voice search
+AI summaries
+News indexing
+Local business discovery
+Android
+
+Android is Google's mobile operating system.
+
+Key Facts:
+
+Open-source base
+Used by Samsung, Xiaomi, OnePlus, and others
+Supports millions of applications
+Official app marketplace: Google Play
+Chrome
+
+Google Chrome is a web browser developed by Google.
+
+Features:
+
+Extensions support
+Sync across devices
+Password manager
+Developer tools
+Incognito mode
+Gmail
+
+Gmail is Google's email platform.
+
+Features:
+
+Spam filtering
+15GB free storage
+Labels and filters
+AI-powered smart replies
+YouTube
+
+YouTube was acquired by Google in 2006.
+
+Services:
+
+Video hosting
+Livestreaming
+Shorts
+YouTube Premium
+Creator monetization
+Google Cloud
+
+Google Cloud provides cloud services for businesses.
+
+Main Services:
+
+Virtual machines
+Kubernetes hosting
+AI APIs
+Cloud storage
+BigQuery
+Firebase
+Serverless computing
+
+Popular Technologies:
+
+Kubernetes
+TensorFlow
+Vertex AI
+Cloud Run
+Artificial Intelligence
+
+Google heavily invests in AI research.
+
+Important AI Products:
+
+Product	Purpose
+Gemini	AI assistant and LLM
+Vertex AI	Enterprise AI platform
+TensorFlow	Machine learning framework
+Google Translate	Language translation
+DeepMind AI	Advanced AI research
+
+Google acquired DeepMind in 2014.
+
+Internal Engineering Practices
+Coding Standards
+Use code reviews before merging.
+Maintain automated testing pipelines.
+Use distributed systems for scalability.
+Optimize systems for low latency.
+Monitor infrastructure using observability tools.
+Infrastructure
+
+Google infrastructure includes:
+
+Massive global data centers
+Custom networking hardware
+Distributed storage systems
+AI accelerators called TPUs
+Security Practices
+Multi-layer authentication is enforced internally.
+Employee access follows least-privilege principles.
+Sensitive data is encrypted in transit and at rest.
+Security reviews are mandatory for production launches.
+Famous Acquisitions
+Company	Year
+YouTube	2006
+Android Inc.	2005
+DoubleClick	2007
+DeepMind	2014
+Fitbit	2021
+Engineering Technologies
+
+Google commonly uses:
+
+C++
+Java
+Python
+Go
+Protocol Buffers
+Kubernetes
+MapReduce
+Data Centers
+
+Google operates data centers in multiple countries including:
+
+United States
+Finland
+Singapore
+Netherlands
+Chile
+
+These data centers support billions of users daily.
+
+Revenue Model
+
+Google primarily earns revenue through:
+
+Digital advertising
+Cloud services
+YouTube subscriptions
+Google Workspace
+App store purchases
+
+Main advertising platform:
+
+Google Ads
+
+Random Retrieval Test Data
+
+Google's first office was a rented garage in California.
+
+The first Google doodle was created in 1998.
+
+Google Chrome was officially launched in 2008.
+
+Android was acquired before becoming the world's largest mobile OS.
+
+Google processes billions of searches every day.
+
+Project name for Google's AI TPU chips internally included multiple accelerator generations.
+
+Google Cloud BigQuery is designed for large-scale analytics workloads.
+
+Internal testing codename: Project Atlas-X.
+
+Support escalation code: GX-4451.
+
+Emergency infrastructure response region: us-central1.
