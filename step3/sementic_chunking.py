@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 tesla_text = """ Tesla's Q3 Results
-Tesla reported record revenue of $25.2B in Q3 2024.
+Tesla reported record revenue of $25.2B in Q3 2024
 The company exceeded analyst expectations by 15%.
 Revenue growth was driven by strong vehicle deliveries.
 
