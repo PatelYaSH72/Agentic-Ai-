@@ -14,7 +14,7 @@ The Model Y became the best-selling vehicle globally, with 350,000 units sold.
 Customer satisfaction ratings reached an all-time high of 96%.
 Model Y now represents 60% of Tesla's total vehicle sales.
 
-Production Challenges
+Production Challenge
 Supply chain issues caused a 12% increase in production costs.
 Tesla is working to diversify its supplier base.
 New manufacturing techniques are being implemented to reduce costs. """
