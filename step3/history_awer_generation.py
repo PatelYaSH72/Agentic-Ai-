@@ -29,7 +29,6 @@ def start_with_quatuion(quations):
       ] + chat_message + [
          HumanMessage(content=f"New question {quations}")
          ]
-      
 
       result = model.invoke(message)
       serach_question = str(result.content).strip()
