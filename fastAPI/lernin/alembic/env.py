@@ -2,9 +2,9 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from app.config.app_config import getAppConfig
 
 from alembic import context
+from app.config.app_config import getAppConfig
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -19,6 +19,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
+
 from app.database.db import Base
 from app.database.schema import *
 target_metadata = Base.metadata
@@ -43,9 +44,9 @@ def run_migrations_offline() -> None:
     """
 
     app_config = getAppConfig()
-   
+    url = app_config.database_url  # ← seedha AppConfig se lo
     context.configure(
-        url=app_config.database_url,
+        url=url,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -56,26 +57,24 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
+    """Run migrations in 'online' mode.
 
+    In this scenario we need to create an Engine
+    and associate a connection with the context.
+
+    """
+    from sqlalchemy import create_engine
     app_config = getAppConfig()
-
-    configuration = config.get_section(config.config_ini_section, {})
-    configuration["sqlalchemy.url"] = app_config.database_url
-
-    connectable = engine_from_config(
-        configuration,  # <-- yaha change karo
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
+    connectable = create_engine(app_config.database_url)  # ← seedha URL do
 
     with connectable.connect() as connection:
         context.configure(
             connection=connection,
-            target_metadata=target_metadata
+            target_metadata=target_metadata,
         )
-
         with context.begin_transaction():
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()

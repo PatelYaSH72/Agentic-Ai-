@@ -6,7 +6,6 @@ class AppConfig(BaseSettings):
   app_env:str 
   database_url:str
 
-
   model_config = SettingsConfigDict(env_file=".env")
 
 @lru_cache
