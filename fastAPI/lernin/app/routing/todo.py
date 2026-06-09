@@ -5,18 +5,20 @@ from sqlalchemy.orm import Session
 from app.database.db import get_db
 from app.database.schema.todo_schema import TodoSchema
 from sqlalchemy import select
+from app.dependencies import authenticate_user
+from app.models.auth import AuthUser
 
-router = APIRouter(prefix="/todo")
+router = APIRouter(prefix="/todo", dependencies=[Depends(authenticate_user)])
 
 
 
 @router.get("/")
-def index(db:Annotated[Session, Depends(get_db)]):
+def index(db:Annotated[Session, Depends(get_db)], authUser:Annotated[AuthUser, Depends(authenticate_user)]):
   stmt = select(TodoSchema.id, TodoSchema.content, TodoSchema.is_completed)
 
   todos = db.execute(stmt).mappings().all()
   # todos = db.query(TodoSchema).all()
-  return {"message":"This is the TODO router", "data":todos}
+  return {"message":"This is the TODO router", "data":todos, "authUser":authUser}
 
 
 @router.get("/{id}")
