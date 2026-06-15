@@ -1,0 +1,59 @@
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_groq import ChatGroq
+from pydantic import BaseModel
+from typing import List
+from dotenv import load_dotenv
+
+load_dotenv()
+
+persistent_directry = "db/chroma_db"
+embedding_model=  HuggingFaceEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
+
+db = Chroma(
+  persist_directory=persistent_directry,
+  embedding_function=embedding_model,
+  collection_metadata={"hnsw:space":"cosine"}
+)
+
+
+class QueryVariations(BaseModel):
+  queries: List[str]
+
+
+original_query = "How does Tesla make money?"
+print(f"Original Query: {original_query}\n")
+
+llm_with_tools = llm.with_structured_output(QueryVariations)
+
+prompt = f"""Generate 3 different variations of this query that would help retrieve relevant documents:
+{original_query}
+
+Return 3 alternative queries that rephrase or approach the same question from different angles."""
+
+response = llm_with_tools.invoke(prompt)
+query_variations = response.queries
+
+print("Generated Query Variations:", response)
+for i, variation in enumerate(query_variations, 1):
+   print(f"{i}. {variation}")
+
+print("\n" + "="*60)
+
+retirever = db.as_retriever(search_kwargs={"k":5 })
+all_retrievl_results = []
+
+for i, query in enumerate(query_variations, 1):
+   print(f"\n === RESULTS FOR QUERY {i}: {query} === ")
+
+   docs = retirever.invoke(query)
+   all_retrievl_results.append(docs)
+
+   print(f"Retrieved {len(docs)} documents:\n")
+
+   for j, doc in enumerate(docs, 1):
+    print(f"Document {j}:")
+    print(f"{doc.page_content [:150]} ... \n")
+
+   print("-" * 50)
