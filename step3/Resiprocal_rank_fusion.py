@@ -95,28 +95,3 @@ fused_results = reciprocal_rank_fusion(all_retrievl_results, k=60)
 # ──────────────────────────────────────────────────────────────────
 # Step 4: Display Final Fused Results
 # ──────────────────────────────────────────────────────────────────
-
-print("\n" + "="*60)
-print("FINAL RRF RANKING")
-print("="*60)
-
-print(f"\nTop {min(10, len(fused_results))} documents after RRF fusion:\n")
-
-for rank, (doc, rrf_score) in enumerate(fused_results[:10], 1):
-    print(f"🏆 RANK {rank} (RRF Score: {rrf_score:.4f})")
-    print(f"{doc.page_content[:200]}...")
-    print("-" * 50)
-
-print(f"\n✅ RRF Complete! Fused {len(fused_results)} unique documents from {len(query_variations)} query variations.")
-print("\n💡 Key benefits:")
-print("   • Documents appearing in multiple queries get boosted scores")
-print("   • Higher positions contribute more to the final score") 
-print("   • Balanced fusion using k=60 for gentle position penalties")
-
-# ──────────────────────────────────────────────────────────────────
-# Optional: Quick Usage Examples
-# ──────────────────────────────────────────────────────────────────
-
-print("\n" + "="*60)
-print("USAGE EXAMPLES")
-print("="*60)
