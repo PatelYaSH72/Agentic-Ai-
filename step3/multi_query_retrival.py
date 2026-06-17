@@ -43,7 +43,7 @@ print("\n" + "="*60)
 
 retirever = db.as_retriever(search_kwargs={"k":5 })
 all_retrievl_results = []
-
+ 
 for i, query in enumerate(query_variations, 1):
    print(f"\n === RESULTS FOR QUERY {i}: {query} === ")
 
