@@ -1,0 +1,57 @@
+Phase 1: AI Chatbot
+
+* FastAPI
+* OpenAI/Gemini API
+* Streaming Responses
+* Conversation Memory
+* Chat History
+* React Frontend
+
+Goal:
+LLM integration, prompt engineering, streaming aur frontend-backend communication samajhna.
+
+↓
+
+Phase 2: PDF Chatbot
+
+* File Upload
+* PDF Parsing
+* Chunking
+* Embeddings
+* Vector Database
+* Retrieval + Generation
+* Citations
+
+Goal:
+Basic RAG pipeline samajhna.
+
+↓
+
+Phase 3: Advanced RAG Upgrade
+
+* Hybrid Search (BM25 + Vector Search)
+* Metadata Filtering
+* Query Expansion
+* Reranking
+* RAGAS Evaluation
+
+Goal:
+Demo-level RAG ko production-level RAG me convert karna.
+
+↓
+
+Phase 4: Enterprise Knowledge Assistant
+
+* Multi PDF Support
+* User Authentication
+* Organization Workspaces
+* Chat History
+* Document Management
+* Hybrid Search
+* Streaming
+* Analytics Dashboard
+* Cost Tracking
+* Deployment
+
+Goal:
+Resume-worthy SaaS product banana.
