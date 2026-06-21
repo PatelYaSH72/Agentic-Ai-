@@ -42,7 +42,7 @@ print("\n" + "="*80)
 
 print("Setting up Vector Retriver...")
 
-embedding_model = HuggingFaceEmbeddings(model="sentence-transformers/all-MiniLM-L6-v2")
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 vectorStore = Chroma.from_documents(
     documents=documents,
     embedding=embedding_model,
@@ -53,4 +53,37 @@ vector_retirver = vectorStore.as_retriever(search_kwargs={"k":2})
 
 test_query = "space exploration company"
 
-test_docs = vector_retirver.invoke(test_query)
+print(f"Testing: '{test_query}'")
+# test_docs = vector_retirver.invoke(test_query)
+# for doc in test_docs:
+#     print(f"Found: {doc.page_content}")
+
+print("Setting up BM25 Retriever...")
+bm25_retriever = BM25Retriever.from_documents(documents)
+bm25_retriever.k = 3
+
+# test_query = "Cybertruck"
+
+# print(f"Testing: '{test_query}'")
+# test_docs = bm25_retriever.invoke(test_query)
+# for doc in test_docs[:2]:
+#     print(f"Found: {doc.page_content}")
+
+
+print("Setting up Hybrid Retriever...")
+htbrid_retriever = EnsembleRetriever(
+    retrievers=[vector_retirver, bm25_retriever],
+    weights=[0.5,0.5]
+)
+
+print("Setup complete!\n")
+
+
+text_query = "purchase cost 7.5 billion"
+
+retrieved_chunks = htbrid_retriever.invoke(text_query)
+
+for i, doc in enumerate(retrieved_chunks,1):
+    print(f"{i}. {doc.page_content}")
+print()
+
