@@ -79,3 +79,11 @@ htbrid_retriever = EnsembleRetriever(
 print("Setup complete!\n")
 
 
+text_query = "purchase cost 7.5 billion"
+
+retrieved_chunks = htbrid_retriever.invoke(text_query)
+
+for i, doc in enumerate(retrieved_chunks,1):
+    print(f"{i}. {doc.page_content}")
+print()
+
