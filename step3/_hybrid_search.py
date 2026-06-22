@@ -4,30 +4,83 @@ from langchain_groq import ChatGroq
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
 from langchain_chroma import Chroma
+from langchain_cohere import CohereRerank
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
 chunks = [
-    "Microsoft acquired GitHub for 7.5 billion dollars in 2018.",
-    "Tesla Cybertruck production ramp begins in 2024.",
-    "Google is a large technology company with global operations.",
-    "Tesla reported strong quarterly results. Tesla continues to lead in electric vehicles. Tesla announced new manufacturing facilities.",
-    "SpaceX develops Starship rockets for Mars missions.",
-    "The tech giant acquired the code repository platform for software development.",
-    "NVIDIA designs Starship architecture for their new GPUs.",
-    "Tesla Tesla Tesla financial quarterly results improved significantly.",
-    "Cybertruck reservations exceeded company expectations.",
-    "Microsoft is a large technology company with global operations.", 
-    "Apple announced new iPhone features for developers.",
-    "The apple orchard harvest was excellent this year.",
-    "Python programming language is widely used in AI.",
-    "The python snake can grow up to 20 feet long.",
-    "Java coffee beans are imported from Indonesia.", 
-    "Java programming requires understanding of object-oriented concepts.",
-    "Orange juice sales increased during winter months.",
-    "Orange County reported new housing developments."
+    # Tesla - Financial & Production
+    "Tesla reported record quarterly revenue of $25.2 billion in Q3 2024.",
+    "Tesla's automotive gross margin improved to 19.3% this quarter.",
+    "Tesla Cybertruck production ramp begins in 2024 with initial deliveries.",
+    "Tesla announced plans to expand Gigafactory production capacity.",
+    "Tesla stock price reached new highs following earnings announcement.",
+    "Tesla's energy storage business grew 40% year-over-year.",
+    "Tesla continues to lead in electric vehicle market share globally.",
+    "Tesla Model Y became the best-selling vehicle worldwide.",
+    "Tesla reported strong free cash flow generation of $7.5 billion.",
+    "Tesla's Full Self-Driving revenue increased significantly.",
+    
+    # Microsoft - Development & Acquisitions
+    "Microsoft acquired GitHub for $7.5 billion in 2018.",
+    "Microsoft's cloud revenue Azure grew 29% year-over-year.",
+    "Microsoft announced new AI features for Visual Studio Code.",
+    "Microsoft Teams integration with GitHub enhances developer workflow.",
+    "Microsoft's developer tools division sees strong adoption.",
+    "Microsoft acquired Activision Blizzard for $68.7 billion.",
+    "Microsoft's productivity suite gained 50 million new users.",
+    "Microsoft announced new Surface devices for developers.",
+    "Microsoft's AI Copilot features expand to more development tools.",
+    "Microsoft's enterprise solutions drive revenue growth.",
+    
+    # NVIDIA - AI & Hardware
+    "NVIDIA's data center revenue reached $47.5 billion annually.",
+    "NVIDIA's H100 GPUs see unprecedented demand for AI training.",
+    "NVIDIA announced next-generation Blackwell architecture.",
+    "NVIDIA's gaming revenue declined due to crypto market changes.",
+    "NVIDIA's automotive AI platform partnerships expanded.",
+    "NVIDIA's AI chip shortage affects cloud providers.",
+    "NVIDIA stock valuation exceeds $2 trillion market cap.",
+    "NVIDIA's CUDA platform dominates AI development.",
+    "NVIDIA announced new AI inference chips for edge computing.",
+    "NVIDIA's partnership with major cloud providers strengthens.",
+    
+    # Google/Alphabet - AI & Cloud
+    "Google's AI investments total over $100 billion in recent years.",
+    "Google Cloud revenue grew 35% reaching $8.4 billion quarterly.",
+    "Google announced Gemini AI model competing with GPT-4.",
+    "Google's search advertising revenue remains strong at $59 billion.",
+    "Google's Workspace products integrate advanced AI features.",
+    "Google announced quantum computing breakthroughs.",
+    "Google's autonomous vehicle division Waymo expands operations.",
+    "Google's AI research published breakthrough papers.",
+    "Google's cloud AI services see enterprise adoption.",
+    "Google faces regulatory scrutiny over AI dominance.",
+    
+    # Noisy/Less Relevant Chunks
+    "The Tesla coil was invented by Nikola Tesla in 1891.",
+    "Microsoft Excel spreadsheet formulas can be complex for beginners.",
+    "NVIDIA Shield TV streaming device gets software update.",
+    "Google Maps navigation improved with real-time traffic data.",
+    "Production delays affected multiple manufacturing sectors.",
+    "Financial markets showed volatility during earnings season.",
+    "Revenue recognition standards changed for software companies.",
+    "Hardware components face supply chain constraints globally.",
+    "Development tools market grows with remote work trends.",
+    "AI research requires significant computational resources.",
+    "Quarterly reports show mixed results across tech sector.",
+    "Stock market analysts upgrade technology sector ratings.",
+    "Cloud computing adoption accelerates in enterprise market.",
+    "Data center construction increases globally.",
+    "Semiconductor shortage impacts various industries.",
+    "Electric vehicle charging infrastructure expands rapidly.",
+    "Software development productivity tools gain popularity.",
+    "Machine learning frameworks become more accessible.",
+    "Enterprise software licensing models evolve.",
+    "Technology conferences showcase latest innovations."
 ]
 
 
@@ -49,7 +102,7 @@ vectorStore = Chroma.from_documents(
     collection_metadata={"hnsw":"cosine"}
 )
 
-vector_retirver = vectorStore.as_retriever(search_kwargs={"k":2})
+vector_retirver = vectorStore.as_retriever(search_kwargs={"k":15})
 
 test_query = "space exploration company"
 
@@ -79,7 +132,7 @@ htbrid_retriever = EnsembleRetriever(
 print("Setup complete!\n")
 
 
-text_query = "purchase cost 7.5 billion"
+text_query = "Tesla financial performance and production updates"
 
 retrieved_chunks = htbrid_retriever.invoke(text_query)
 
@@ -87,3 +140,22 @@ for i, doc in enumerate(retrieved_chunks,1):
     print(f"{i}. {doc.page_content}")
 print()
 
+print("STEP 2: After Cohere Reranking {Top 10}")
+print("-"*50)
+
+reranker = CohereRerank(model="rerank-english-v3.0", top_n=10,
+cohere_api_key=os.getenv("COHERE_API_KEY"))
+
+reranked_docs = reranker.compress_documents(retrieved_chunks, text_query)
+
+
+hybrid_top_5 = [doc.page_content for doc in retrieved_chunks[:5]]
+reranked_top_5= [doc.page_content for doc in reranked_docs[:5]]
+
+print("BEFORE (Hybrid Top 3):")
+for i, content in enumerate(hybrid_top_5, 1):
+    print(f"  {i}. {content}")
+
+print("\nAFTER (Reranked Top 3):")
+for i, content in enumerate(reranked_top_5, 1):
+    print(f"  {i}. {content}")
