@@ -1,7 +1,6 @@
-from fastapi import FastAPI
+from app.app import app
 
-app = FastAPI()
+if __name__ == "__name__":
+  import uvicorn
 
-@app.get("/")
-def root():
-  return {"messsage":"AI Chatbot Backend"}
+  uvicorn.run(app,host="localhost",port=8000)
