@@ -7,7 +7,7 @@ class Message(BaseModel):
 
 class ChatRequest(BaseModel):
   message:str
-  history:List[Message] | None
+  history:List[Message]
 
 
 class ChatResponse(BaseModel):

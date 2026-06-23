@@ -1,9 +1,12 @@
 import os 
-from groq import Groq
-from schema.llmrouterSchema import Message
+from groq import AsyncGroq
+from app.schema.llmrouterSchema import Message
 from typing import List
+from dotenv import load_dotenv
 
-client = Groq(api_key=os.getenv("CHAT_API_KEY"))
+load_dotenv()
+
+client = AsyncGroq(api_key=os.getenv("CHAT_API_KEY"))
 
 async def get_ai_reply(message: str, history: List[Message]) -> str:
 
@@ -23,13 +26,18 @@ async def get_ai_reply(message: str, history: List[Message]) -> str:
          "content":msg.content
       })
 
-      conversation.append({
+  conversation.append({
          "role":"user",
          "content":message
       })
 
-      response = await client.chat.completions.create(
-         model=""
+  response = await client.chat.completions.create(
+         model="llama-3.3-70b-versatile",
+         messages=[system_prompt] + conversation,
+         temperature=0.7,
+         max_tokens=1000,
 
 
       )
+
+  return response.choices[0].message.content
