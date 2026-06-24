@@ -113,28 +113,45 @@ export default function ChatPage() {
     setInput("");
   }
 
-  // Send message
-  async function handleSend() {
-    const text = input.trim();
-    if (!text) return;
+ // ── API Config ─────────────────────────
+const API_URL = "http://127.0.0.1:8000";
 
-    const userMsg = { role: "user", content: text };
-    const newMsgs = [...messages, userMsg];
-    setMessages(newMsgs);
-    setInput("");
-    setIsTyping(true);
+// handleSend function — ye replace karo pura
+async function handleSend() {
+  const text = input.trim();
+  if (!text || isTyping) return;
 
-    // Simulated AI reply
-    await new Promise((r) => setTimeout(r, 1200));
-    const aiMsg = {
-      role: "ai",
-      content: `"${text}" — ye ek achha sawaal hai! Main abhi is topic pe kaam kar raha hoon. Real project mein yahan OpenAI/Gemini API ka response aayega.`,
-    };
+  // 1. User message turant dikhao
+  const userMsg = { role: "user", content: text };
+  const newMsgs = [...messages, userMsg];
+  setMessages(newMsgs);
+  setInput("");
+  setIsTyping(true);
+
+  try {
+    // 2. Backend API call
+    const response = await fetch(`${API_URL}/llm/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: text,          // string
+        history: messages.map((msg) => ({
+          role: msg.role,       // "user" ya "ai"
+          content: msg.content,
+        })),
+      }),
+    });
+
+    if (!response.ok) throw new Error("Server error: " + response.status);
+
+    const data = await response.json();
+
+    // 3. AI reply add karo
+    const aiMsg = { role: "ai", content: data.reply };
     const finalMsgs = [...newMsgs, aiMsg];
     setMessages(finalMsgs);
-    setIsTyping(false);
 
-    // Save/update history
+    // 4. Sidebar history update
     if (activeChatId) {
       setHistory((prev) =>
         prev.map((c) =>
@@ -142,17 +159,24 @@ export default function ChatPage() {
         )
       );
     } else {
-      const newChat = {
+      const newChatObj = {
         id: ++nextId,
         title: text.length > 40 ? text.slice(0, 40) + "…" : text,
         date: "Aaj",
         messages: finalMsgs,
       };
-      setHistory((prev) => [newChat, ...prev]);
-      setActiveChatId(newChat.id);
+      setHistory((prev) => [newChatObj, ...prev]);
+      setActiveChatId(newChatObj.id);
     }
-  }
 
+  } catch (err) {
+    // 5. Error — ek alert dikhao
+    console.error("API Error:", err);
+    alert("Error: " + err.message);
+  } finally {
+    setIsTyping(false);
+  }
+}
   function deleteChat(e, id) {
     e.stopPropagation();
     setHistory((prev) => prev.filter((c) => c.id !== id));
