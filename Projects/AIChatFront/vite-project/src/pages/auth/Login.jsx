@@ -1,11 +1,18 @@
-import React from 'react'
+import LoginCard from "../../components/auth/LoginForm";
+import "../../styles/login.css";
 
-const Login = () => {
-  return (
-    <div>
-      Login
-    </div>
-  )
+function Login(){
+
+    return(
+
+        <div className="login-page">
+
+            <LoginCard/>
+
+        </div>
+
+    )
+
 }
 
 export default Login
