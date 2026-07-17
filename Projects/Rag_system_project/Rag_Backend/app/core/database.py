@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker, DeclarativeBase
 from app.core.config import settings
 
 
+
 engine = create_engine(
     settings.DATABASE_URL,
     echo=settings.DEBUG
@@ -28,3 +29,5 @@ def get_db():
         yield db
     finally:
         db.close()
+
+import app.models
