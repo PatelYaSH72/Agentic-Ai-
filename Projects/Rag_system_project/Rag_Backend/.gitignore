@@ -1,0 +1,17 @@
+.venv/
+
+__pycache__/
+
+.env
+
+.pytest_cache/
+
+uploads/
+
+logs/
+
+*.pyc
+
+.vscode/
+
+.idea/
