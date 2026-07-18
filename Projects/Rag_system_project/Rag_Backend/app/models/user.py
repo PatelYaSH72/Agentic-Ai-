@@ -59,3 +59,9 @@ class User(Base):
         back_populates="owner",
         cascade="all, delete-orphan",
     )
+
+    chats = relationship(
+        "Chat",
+        back_populates="owner",
+        cascade="all, delete-orphan",
+    )
