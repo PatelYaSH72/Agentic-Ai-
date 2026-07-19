@@ -3,6 +3,9 @@ from app.models.document import Document
 from app.models.document_chunk import DocumentChunk
 from app.models.user import User
 from app.models.chat import Chat
+from app.models.message import ChatMessage
+from app.models.retrieval_log import RetrievalLog
+from app.models.settings import UserSettings
 
 __all__ = [
     "User",
@@ -10,4 +13,7 @@ __all__ = [
     "Document",
     "DocumentChunk",
     "Chat",
+    "ChatMessage",
+    "RetrievalLog",
+    "UserSettings",
 ]
