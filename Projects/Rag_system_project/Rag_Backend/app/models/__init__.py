@@ -6,6 +6,7 @@ from app.models.chat import Chat
 from app.models.message import ChatMessage
 from app.models.retrieval_log import RetrievalLog
 from app.models.settings import UserSettings
+from app.models.refresh_token import RefreshToken
 
 __all__ = [
     "User",
@@ -16,4 +17,5 @@ __all__ = [
     "ChatMessage",
     "RetrievalLog",
     "UserSettings",
+    "RefreshToken",
 ]

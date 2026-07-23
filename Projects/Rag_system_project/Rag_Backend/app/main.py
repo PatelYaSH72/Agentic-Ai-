@@ -16,7 +16,7 @@ app.add_exception_handler(
 
 app.include_router(
     api_router,
-    prefix="/api/v1",
+   
 )
 
 
