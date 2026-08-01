@@ -211,3 +211,169 @@ def upload_document(
         "processing_status": document.processing_status,
     }
 
+
+@router.get("/")
+def get_documents(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+
+    documents = (
+        db.query(Document)
+        .filter(
+            Document.uploaded_by == current_user.id
+        )
+        .order_by(
+            Document.created_at.desc()
+        )
+        .all()
+    )
+
+    return {
+        "total": len(documents),
+        "documents": [
+            {
+                "id": document.id,
+                "title": document.title,
+                "original_filename": document.original_filename,
+                "file_type": document.file_type,
+                "file_size": document.file_size,
+                "collection_id": document.collection_id,
+                "processing_status": document.processing_status,
+                "created_at": document.created_at,
+            }
+            for document in documents
+        ],
+    }
+
+
+# ==========================================
+# GET SINGLE DOCUMENT
+# ==========================================
+
+@router.get(
+    "/{document_id}",
+)
+def get_document(
+    document_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Get a single document by ID.
+    """
+
+    document = (
+        db.query(Document)
+        .filter(
+            Document.id == document_id,
+            Document.uploaded_by == current_user.id,
+        )
+        .first()
+    )
+
+    if not document:
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found",
+        )
+
+    return {
+
+        "id": document.id,
+
+        "title": document.title,
+
+        "original_filename": document.original_filename,
+
+        "stored_filename": document.stored_filename,
+
+        "file_type": document.file_type,
+
+        "file_size": document.file_size,
+
+        "file_path": document.file_path,
+
+        "collection_id": document.collection_id,
+
+        "uploaded_by": document.uploaded_by,
+
+        "is_processed": document.is_processed,
+
+        "processing_status": document.processing_status,
+
+        "total_pages": document.total_pages,
+
+        "total_chunks": document.total_chunks,
+
+        "embedding_model": document.embedding_model,
+
+        "created_at": document.created_at,
+
+        "updated_at": document.updated_at,
+    }
+
+
+# ==========================================
+# DELETE DOCUMENT
+# ==========================================
+
+@router.delete(
+    "/{document_id}",
+    status_code=status.HTTP_200_OK,
+)
+def delete_document(
+    document_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Delete a document.
+    """
+
+    document = (
+        db.query(Document)
+        .filter(
+            Document.id == document_id,
+            Document.uploaded_by == current_user.id,
+        )
+        .first()
+    )
+
+    if not document:
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found",
+        )
+
+    # --------------------------------------
+    # Delete physical file
+    # --------------------------------------
+
+    file_path = Path(document.file_path)
+
+    if file_path.exists():
+
+        file_path.unlink()
+
+    # --------------------------------------
+    # Delete database record
+    # --------------------------------------
+
+    db.delete(document)
+
+    db.commit()
+
+    # --------------------------------------
+    # Response
+    # --------------------------------------
+
+    return {
+        "message": "Document deleted successfully",
+        "document_id": document_id,
+    }
+
+
+
