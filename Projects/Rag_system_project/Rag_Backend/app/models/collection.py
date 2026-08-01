@@ -51,9 +51,3 @@ class Collection(Base):
         back_populates="collection",
         cascade="all, delete-orphan",
     )
-
-    documents = relationship(
-        "Document",
-        back_populates="collection",
-        cascade="all, delete-orphan",
-    )

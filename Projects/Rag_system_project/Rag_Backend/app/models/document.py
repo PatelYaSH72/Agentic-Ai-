@@ -58,9 +58,9 @@ class Document(Base):
         nullable=True,
     )
 
-    collection_id: Mapped[int] = mapped_column(
+    collection_id: Mapped[int | None] = mapped_column(
         ForeignKey("document_collections.id"),
-        nullable=False,
+        nullable=True,
     )
 
     uploaded_by: Mapped[int] = mapped_column(
@@ -120,8 +120,4 @@ class Document(Base):
         cascade="all, delete-orphan",
     )
 
-    chunks = relationship(
-        "DocumentChunk",
-        back_populates="document",
-        cascade="all, delete-orphan",
-    )
+    

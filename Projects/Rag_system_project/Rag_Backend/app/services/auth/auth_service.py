@@ -13,7 +13,7 @@ from app.core.security import (
 from datetime import datetime, timedelta, timezone
 from app.models.refresh_token import RefreshToken
 from app.core.config import settings
-
+from app.core.security import create_access_token
 
 
 class AuthService:
@@ -157,3 +157,56 @@ class AuthService:
                 "refresh_token": refresh_token,
                 "token_type": "bearer",
             }
+
+    @staticmethod
+    def refresh_access_token(
+        db: Session,
+        refresh_token_value: str,
+    ) -> str:
+
+        refresh_token = (
+            db.query(RefreshToken)
+            .filter(
+                RefreshToken.token == refresh_token_value,
+                RefreshToken.is_revoked == False,
+            )
+            .first()
+        )
+
+        if not refresh_token:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid refresh token",
+            )
+
+        if refresh_token.expires_at < datetime.now(timezone.utc):
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Refresh token expired",
+            )
+
+        access_token = create_access_token(
+            data={
+                "sub": str(refresh_token.user_id)
+            }
+        )
+
+        return access_token
+
+    @staticmethod
+    def revoke_refresh_token(
+        db: Session,
+        refresh_token_value: str,
+    ):
+        refresh_token = (
+            db.query(RefreshToken)
+            .filter(
+                RefreshToken.token == refresh_token_value,
+                RefreshToken.is_revoked == False,
+            )
+            .first()
+        )
+
+        if refresh_token:
+            refresh_token.is_revoked = True
+            db.commit()
