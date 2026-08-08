@@ -1,4 +1,5 @@
 from datetime import datetime
+from pgvector.sqlalchemy import Vector
 
 from sqlalchemy import (
     DateTime,
@@ -60,6 +61,11 @@ class DocumentChunk(Base):
 
     embedding_dimension: Mapped[int | None] = mapped_column(
         Integer,
+        nullable=True,
+    )
+
+    embedding: Mapped[list[float] | None] = mapped_column(
+        Vector(384),
         nullable=True,
     )
 

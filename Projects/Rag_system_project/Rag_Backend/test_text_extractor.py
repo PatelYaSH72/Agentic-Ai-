@@ -1,46 +1,26 @@
-from app.services.processing.text_extractor import (
-    TextExtractor,
+from app.core.database import SessionLocal
+
+from app.services.processing.embedding_storage import (
+    EmbeddingStorage,
 )
 
-from app.services.processing.chunking_factory import (
-    ChunkingFactory,
-)
 
-extractor = TextExtractor()
+DOCUMENT_ID = 1
 
-text = extractor.extract_text(
-    "uploads/documents/de524d6524fe4b0c898a93b9c83fbc0f.pdf"
-)
 
-strategy = "recursive"
-# strategy = "document_structure"
-# strategy = "semantic"
+db = SessionLocal()
 
-chunker = ChunkingFactory.get_chunker(
-    strategy
-)
+try:
 
-chunks = chunker.split_text(
-    text
-)
+    count = EmbeddingStorage.generate_and_store(
+        db=db,
+        document_id=DOCUMENT_ID,
+    )
 
-print(
-    f"Strategy : {strategy}"
-)
+    print(
+        f"Embeddings stored: {count}"
+    )
 
-print(
-    f"Chunks : {len(chunks)}"
-)
+finally:
 
-for index, chunk in enumerate(
-    chunks,
-    start=1,
-):
-
-    print("=" * 80)
-
-    print(f"Chunk {index}")
-
-    print("=" * 80)
-
-    print(chunk)
+    db.close()

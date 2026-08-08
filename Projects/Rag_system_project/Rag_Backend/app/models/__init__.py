@@ -19,5 +19,4 @@ __all__ = [
     "RetrievalLog",
     "UserSettings",
     "RefreshToken",
-    "Collection"
 ]
