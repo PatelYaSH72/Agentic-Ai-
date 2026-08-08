@@ -18,6 +18,7 @@ from app.core.database import get_db
 from app.models.user import User
 from app.models.document import Document
 from app.models.collection import Collection
+from app.services.processing.document_processor import DocumentProcessor
 
 
 router = APIRouter(
@@ -377,3 +378,87 @@ def delete_document(
 
 
 
+# ==========================================
+# PROCESS DOCUMENT
+# ==========================================
+
+@router.post(
+    "/{document_id}/process",
+    status_code=status.HTTP_200_OK,
+)
+def process_document(
+    document_id: int,
+    chunking_strategy: str = "recursive",
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """
+    Process a document through the ingestion pipeline.
+    """
+
+    # --------------------------------------
+    # Find document owned by current user
+    # --------------------------------------
+
+    document = (
+        db.query(Document)
+        .filter(
+            Document.id == document_id,
+            Document.uploaded_by == current_user.id,
+        )
+        .first()
+    )
+
+    if not document:
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found",
+        )
+
+    # --------------------------------------
+    # Validate chunking strategy
+    # --------------------------------------
+
+    allowed_strategies = {
+        "recursive",
+        "document_structure",
+        "semantic",
+    }
+
+    if chunking_strategy not in allowed_strategies:
+
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=(
+                "Invalid chunking strategy. "
+                f"Allowed: "
+                f"{', '.join(allowed_strategies)}"
+            ),
+        )
+
+    # --------------------------------------
+    # Process document
+    # --------------------------------------
+
+    processor = DocumentProcessor()
+
+    try:
+
+        result = processor.process_document(
+            document=document,
+            db=db,
+            chunking_strategy=chunking_strategy,
+        )
+
+    except Exception as exc:
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Document processing failed: {str(exc)}",
+        )
+
+    return {
+        "message": "Document processed successfully",
+        **result,
+    }

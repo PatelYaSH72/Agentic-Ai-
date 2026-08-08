@@ -51,7 +51,7 @@ class DocumentProcessor:
                 chunking_strategy
             )
 
-            chunks = chunker.chunk(text)
+            chunks = chunker.split_text(text)
 
             if not chunks:
                 raise ValueError(
@@ -101,7 +101,7 @@ class DocumentProcessor:
                     ),
 
                     embedding_model=(
-                        self.embedding_service.model_name
+                        self.embedding_service.MODEL_NAME
                     ),
 
                     embedding_dimension=len(
