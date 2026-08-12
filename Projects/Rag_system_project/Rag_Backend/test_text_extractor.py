@@ -9,15 +9,11 @@ from app.services.embedding.embedding_service import (
 )
 
 
-def test_top_k_retrieval():
+def test_metadata_filtering():
 
     db = SessionLocal()
 
     try:
-
-        # --------------------------------------
-        # Query
-        # --------------------------------------
 
         query = "What is database query optimization?"
 
@@ -40,45 +36,53 @@ def test_top_k_retrieval():
         print(len(query_embedding))
 
         # --------------------------------------
-        # Top-K Retrieval
+        # Metadata Filter
         # --------------------------------------
 
+        collection_id = 3
         top_k = 5
+
+        print("\nCollection ID:")
+        print(collection_id)
+
+        # --------------------------------------
+        # Search
+        # --------------------------------------
 
         search_service = VectorSearchService(db)
 
         results = search_service.search(
             query_embedding=query_embedding,
             limit=top_k,
+            collection_id=collection_id,
         )
-
-        # --------------------------------------
-        # Validate Top-K
-        # --------------------------------------
-
-        print("\n==============================")
-        print("TOP-K RETRIEVAL")
-        print("==============================")
-
-        print("\nRequested K:", top_k)
-        print("Results returned:", len(results))
-
-        assert len(results) <= top_k
 
         # --------------------------------------
         # Results
         # --------------------------------------
 
-        for index, result in enumerate(
+        print("\n==============================")
+        print("METADATA FILTERED SEARCH")
+        print("==============================")
+
+        print("\nResults found:")
+        print(len(results))
+
+        assert len(results) <= top_k
+
+        for rank, result in enumerate(
             results,
             start=1,
         ):
 
             print("\n------------------------------")
 
-            print("Rank:", index)
+            print("Rank:", rank)
 
-            print("Chunk ID:", result.id)
+            print(
+                "Chunk ID:",
+                result.id,
+            )
 
             print(
                 "Document ID:",
@@ -100,11 +104,13 @@ def test_top_k_retrieval():
                 result.chunk_text[:300],
             )
 
-        print("\n✅ TOP-K RETRIEVAL TEST PASSED")
+        print(
+            "\n✅ METADATA FILTERING TEST PASSED"
+        )
 
     finally:
 
         db.close()
 
 
-test_top_k_retrieval()
+test_metadata_filtering()
