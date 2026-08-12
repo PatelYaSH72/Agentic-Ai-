@@ -1,60 +1,50 @@
 from app.core.database import SessionLocal
 
-from app.services.retrieval.vector_search import (
-    VectorSearchService,
-)
-
-from app.services.embedding.embedding_service import (
-    EmbeddingService,
+from app.services.retrieval.retrieval_service import (
+    RetrievalService,
 )
 
 
-def test_metadata_filtering():
+def test_retrieval_service():
 
     db = SessionLocal()
 
     try:
 
-        query = "What is database query optimization?"
-
-        print("\nQuery:")
-        print(query)
-
-        # --------------------------------------
-        # Query Embedding
-        # --------------------------------------
-
-        embedding_service = EmbeddingService()
-
-        query_embedding = (
-            embedding_service.generate_embedding(
-                query
-            )
+        query = (
+            "What is database query optimization?"
         )
-
-        print("\nEmbedding dimension:")
-        print(len(query_embedding))
-
-        # --------------------------------------
-        # Metadata Filter
-        # --------------------------------------
 
         collection_id = 3
         top_k = 5
 
+        print("\n==============================")
+        print("RETRIEVAL SERVICE TEST")
+        print("==============================")
+
+        print("\nQuery:")
+        print(query)
+
         print("\nCollection ID:")
         print(collection_id)
 
+        print("\nTop-K:")
+        print(top_k)
+
         # --------------------------------------
-        # Search
+        # Retrieval Service
         # --------------------------------------
 
-        search_service = VectorSearchService(db)
+        retrieval_service = (
+            RetrievalService(db)
+        )
 
-        results = search_service.search(
-            query_embedding=query_embedding,
-            limit=top_k,
-            collection_id=collection_id,
+        results = (
+            retrieval_service.retrieve(
+                query=query,
+                limit=top_k,
+                collection_id=collection_id,
+            )
         )
 
         # --------------------------------------
@@ -62,11 +52,13 @@ def test_metadata_filtering():
         # --------------------------------------
 
         print("\n==============================")
-        print("METADATA FILTERED SEARCH")
+        print("RETRIEVAL RESULTS")
         print("==============================")
 
-        print("\nResults found:")
-        print(len(results))
+        print(
+            "\nResults found:",
+            len(results),
+        )
 
         assert len(results) <= top_k
 
@@ -75,7 +67,9 @@ def test_metadata_filtering():
             start=1,
         ):
 
-            print("\n------------------------------")
+            print(
+                "\n------------------------------"
+            )
 
             print("Rank:", rank)
 
@@ -105,7 +99,7 @@ def test_metadata_filtering():
             )
 
         print(
-            "\n✅ METADATA FILTERING TEST PASSED"
+            "\n✅ RETRIEVAL SERVICE TEST PASSED"
         )
 
     finally:
@@ -113,4 +107,4 @@ def test_metadata_filtering():
         db.close()
 
 
-test_metadata_filtering()
+test_retrieval_service()
