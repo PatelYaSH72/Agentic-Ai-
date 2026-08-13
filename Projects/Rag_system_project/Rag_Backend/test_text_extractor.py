@@ -1,65 +1,100 @@
-from app.services.embedding.embedding_service import (
-    EmbeddingService,
+from app.core.database import SessionLocal
+
+from app.services.retrieval.hybrid_search import (
+    HybridSearchService,
 )
 
-from app.services.retrieval.query_embedding import (
-    QueryEmbeddingService,
-)
 
+def test_hybrid_search():
 
-def test_query_embedding():
+    db = SessionLocal()
 
-    # --------------------------------------
-    # Initialize services
-    # --------------------------------------
+    try:
 
-    embedding_service = EmbeddingService()
+        query = "database"
 
-    query_embedding_service = (
-        QueryEmbeddingService(
-            embedding_service
+        print("\n==============================")
+        print("HYBRID SEARCH TEST")
+        print("==============================")
+
+        print("\nQuery:")
+        print(query)
+
+        service = HybridSearchService(db)
+
+        results = service.search(
+            query=query,
+            limit=5,
+            document_id=1,
         )
-    )
 
-    # --------------------------------------
-    # Test Query
-    # --------------------------------------
-
-    query = (
-        "What is database query optimization?"
-    )
-
-    # --------------------------------------
-    # Generate Query Embedding
-    # --------------------------------------
-
-    embedding = (
-        query_embedding_service.generate(
-            query
+        vector_results = (
+            results["vector_results"]
         )
-    )
 
-    # --------------------------------------
-    # Results
-    # --------------------------------------
+        keyword_results = (
+            results["keyword_results"]
+        )
 
-    print("\n==============================")
-    print("QUERY EMBEDDING TEST")
-    print("==============================")
+        print("\n==============================")
+        print("VECTOR RESULTS")
+        print("==============================")
 
-    print("\nQuery:")
-    print(query)
+        print(
+            "Results found:",
+            len(vector_results),
+        )
 
-    print("\nEmbedding dimension:")
-    print(len(embedding))
+        for result in vector_results:
 
-    print("\nEmbedding type:")
-    print(type(embedding))
+            print("\n------------------------------")
 
-    print("\nFirst 10 values:")
-    print(embedding[:10])
+            print("Chunk ID:", result.id)
 
-    print("\nIs empty:")
-    print(len(embedding) == 0)
+            print(
+                "Chunk Index:",
+                result.chunk_index,
+            )
 
-    print("\nSUCCESS")
+            print(
+                "Text:",
+                result.chunk_text[:200],
+            )
+
+        print("\n==============================")
+        print("KEYWORD RESULTS")
+        print("==============================")
+
+        print(
+            "Results found:",
+            len(keyword_results),
+        )
+
+        for result in keyword_results:
+
+            print("\n------------------------------")
+
+            print("Chunk ID:", result.id)
+
+            print(
+                "Chunk Index:",
+                result.chunk_index,
+            )
+
+            print(
+                "Text:",
+                result.chunk_text[:200],
+            )
+
+        print("\n==============================")
+        print("HYBRID SEARCH SUCCESS")
+        print("==============================")
+
+    finally:
+
+        db.close()
+
+
+if __name__ == "__main__":
+
+    test_hybrid_search()
