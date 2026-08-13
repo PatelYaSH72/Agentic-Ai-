@@ -84,3 +84,10 @@ def retrieve_documents(
             status_code=500,
             detail=f"Retrieval failed: {str(exc)}",
         )
+
+
+
+
+
+
+    

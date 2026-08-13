@@ -1,110 +1,65 @@
-from app.core.database import SessionLocal
+from app.services.embedding.embedding_service import (
+    EmbeddingService,
+)
 
-from app.services.retrieval.retrieval_service import (
-    RetrievalService,
+from app.services.retrieval.query_embedding import (
+    QueryEmbeddingService,
 )
 
 
-def test_retrieval_service():
+def test_query_embedding():
 
-    db = SessionLocal()
+    # --------------------------------------
+    # Initialize services
+    # --------------------------------------
 
-    try:
+    embedding_service = EmbeddingService()
 
-        query = (
-            "What is database query optimization?"
+    query_embedding_service = (
+        QueryEmbeddingService(
+            embedding_service
         )
+    )
 
-        collection_id = 3
-        top_k = 5
+    # --------------------------------------
+    # Test Query
+    # --------------------------------------
 
-        print("\n==============================")
-        print("RETRIEVAL SERVICE TEST")
-        print("==============================")
+    query = (
+        "What is database query optimization?"
+    )
 
-        print("\nQuery:")
-        print(query)
+    # --------------------------------------
+    # Generate Query Embedding
+    # --------------------------------------
 
-        print("\nCollection ID:")
-        print(collection_id)
-
-        print("\nTop-K:")
-        print(top_k)
-
-        # --------------------------------------
-        # Retrieval Service
-        # --------------------------------------
-
-        retrieval_service = (
-            RetrievalService(db)
+    embedding = (
+        query_embedding_service.generate(
+            query
         )
+    )
 
-        results = (
-            retrieval_service.retrieve(
-                query=query,
-                limit=top_k,
-                collection_id=collection_id,
-            )
-        )
+    # --------------------------------------
+    # Results
+    # --------------------------------------
 
-        # --------------------------------------
-        # Results
-        # --------------------------------------
+    print("\n==============================")
+    print("QUERY EMBEDDING TEST")
+    print("==============================")
 
-        print("\n==============================")
-        print("RETRIEVAL RESULTS")
-        print("==============================")
+    print("\nQuery:")
+    print(query)
 
-        print(
-            "\nResults found:",
-            len(results),
-        )
+    print("\nEmbedding dimension:")
+    print(len(embedding))
 
-        assert len(results) <= top_k
+    print("\nEmbedding type:")
+    print(type(embedding))
 
-        for rank, result in enumerate(
-            results,
-            start=1,
-        ):
+    print("\nFirst 10 values:")
+    print(embedding[:10])
 
-            print(
-                "\n------------------------------"
-            )
+    print("\nIs empty:")
+    print(len(embedding) == 0)
 
-            print("Rank:", rank)
-
-            print(
-                "Chunk ID:",
-                result.id,
-            )
-
-            print(
-                "Document ID:",
-                result.document_id,
-            )
-
-            print(
-                "Chunk Index:",
-                result.chunk_index,
-            )
-
-            print(
-                "Strategy:",
-                result.chunking_strategy,
-            )
-
-            print(
-                "Text:",
-                result.chunk_text[:300],
-            )
-
-        print(
-            "\n✅ RETRIEVAL SERVICE TEST PASSED"
-        )
-
-    finally:
-
-        db.close()
-
-
-test_retrieval_service()
+    print("\nSUCCESS")

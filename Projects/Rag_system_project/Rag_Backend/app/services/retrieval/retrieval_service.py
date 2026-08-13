@@ -4,6 +4,10 @@ from app.services.embedding.embedding_service import (
     EmbeddingService,
 )
 
+from app.services.retrieval.query_embedding import (
+    QueryEmbeddingService,
+)
+
 from app.services.retrieval.vector_search import (
     VectorSearchService,
 )
@@ -15,9 +19,27 @@ class RetrievalService:
 
         self.db = db
 
+        # --------------------------------------
+        # Embedding Service
+        # --------------------------------------
+
         self.embedding_service = (
             EmbeddingService()
         )
+
+        # --------------------------------------
+        # Query Embedding Service
+        # --------------------------------------
+
+        self.query_embedding_service = (
+            QueryEmbeddingService(
+                self.embedding_service
+            )
+        )
+
+        # --------------------------------------
+        # Vector Search Service
+        # --------------------------------------
 
         self.vector_search_service = (
             VectorSearchService(db)
@@ -48,11 +70,11 @@ class RetrievalService:
             )
 
         # --------------------------------------
-        # Generate query embedding
+        # Generate Query Embedding
         # --------------------------------------
 
         query_embedding = (
-            self.embedding_service.generate_embedding(
+            self.query_embedding_service.generate(
                 query
             )
         )
